@@ -9,7 +9,7 @@ namespace Hololive_Store.Common.Entities
     { 
         public int Id { get; set; }
 
-        [MaxLength(50)]
+        [MaxLength(50)] 
         [Required]
         public string Name { get; set; }
 
