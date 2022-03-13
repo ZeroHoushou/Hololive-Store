@@ -104,7 +104,7 @@ namespace Hololive_Store.Web.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] Country country)
+        public async Task<IActionResult> Edit(int id, Country country)
         {
             if (id != country.Id)
             {
@@ -117,6 +117,7 @@ namespace Hololive_Store.Web.Controllers
                 {
                     _context.Update(country);
                     await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
                 }
                 catch (DbUpdateException dbUpdateException)
                 {
@@ -133,10 +134,10 @@ namespace Hololive_Store.Web.Controllers
                 {
                     ModelState.AddModelError(string.Empty, exception.Message);
                 }
-                return RedirectToAction(nameof(Index));
             }
             return View(country);
         }
+
 
         // GET: Countries/Delete/5
         public async Task<IActionResult> Delete(int? id)
