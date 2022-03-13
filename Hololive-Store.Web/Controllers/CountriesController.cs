@@ -79,8 +79,6 @@ namespace Hololive_Store.Web.Controllers
                 {
                     ModelState.AddModelError(string.Empty, exception.Message);
                 }
-
-
             }
             return View(country);
         }
@@ -120,16 +118,20 @@ namespace Hololive_Store.Web.Controllers
                     _context.Update(country);
                     await _context.SaveChangesAsync();
                 }
-                catch (DbUpdateConcurrencyException)
+                catch (DbUpdateException dbUpdateException)
                 {
-                    if (!CountryExists(country.Id))
+                    if (dbUpdateException.InnerException.Message.Contains("duplicate"))
                     {
-                        return NotFound();
+                        ModelState.AddModelError(string.Empty, "There are a record with the same name.");
                     }
                     else
                     {
-                        throw;
+                        ModelState.AddModelError(string.Empty, dbUpdateException.InnerException.Message);
                     }
+                }
+                catch (Exception exception)
+                {
+                    ModelState.AddModelError(string.Empty, exception.Message);
                 }
                 return RedirectToAction(nameof(Index));
             }
