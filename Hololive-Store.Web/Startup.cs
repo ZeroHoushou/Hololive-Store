@@ -35,7 +35,7 @@ namespace Hololive_Store.Web
 
             services.AddDbContext<DataContext>(cfg =>
             {
-                cfg.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+                cfg.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")).EnableSensitiveDataLogging();
             });
 
         }
