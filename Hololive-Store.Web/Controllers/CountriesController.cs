@@ -210,7 +210,7 @@ namespace Hololive_Store.Web.Controllers
                     country.Departments.Add(department);
                     _context.Update(country);
                     await _context.SaveChangesAsync();
-                    return RedirectToAction($"{nameof(Details)}/{country.Id}");
+                    return RedirectToAction($"{nameof(Details)}",new{country.Id});
 
                 }
                 catch (DbUpdateException dbUpdateException)
@@ -233,9 +233,7 @@ namespace Hololive_Store.Web.Controllers
             return View(department);
         }
 
-        private bool CountryExists(int id)
-        {
-            return _context.Countries.Any(e => e.Id == id);
-        }
+
+
     }
 }
