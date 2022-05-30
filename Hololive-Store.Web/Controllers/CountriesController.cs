@@ -421,9 +421,17 @@ namespace Hololive_Store.Web.Controllers
             {
                 try
                 {
+                    Department department = await _context.Departments.AsNoTracking()
+                   .Include(c => c.Citiess)
+                   .FirstOrDefaultAsync(c => c.Id ==city.IdDepartment );
+                    if (department == null)
+                    {
+                        return NotFound();
+                    }
+
                     _context.Update(city);
                     await _context.SaveChangesAsync();
-                    return RedirectToAction($"{nameof(DetailsDepartment)}",new {city.IdDepartment});
+                    return RedirectToAction($"{nameof(DetailsDepartment)}",new{department.Id});
 
 
                 }
