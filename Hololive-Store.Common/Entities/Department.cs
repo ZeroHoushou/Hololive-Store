@@ -15,10 +15,10 @@ namespace Hololive_Store.Common.Entities
         [Required]
         public string Name { get; set; }
 
-        public ICollection<City> Cities { get; set; }
+        public ICollection<City> Citiess { get; set; }
 
         [DisplayName("Cities Number")]
-        public int CitiesNumber => Cities == null ? 0 : Cities.Count;
+        public int CitiesNumber => Citiess == null ? 0 : Citiess.Count;
         
         [NotMapped]
         public int IdCountry { get; set; }
