@@ -43,7 +43,7 @@ namespace Hololive_Store.Web.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Citiess");
+                    b.ToTable("Cities");
                 });
 
             modelBuilder.Entity("Hololive_Store.Common.Entities.Country", b =>

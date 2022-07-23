@@ -27,7 +27,7 @@ namespace Hololive_Store.Web.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Citiess",
+                name: "Cities",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -48,12 +48,12 @@ namespace Hololive_Store.Web.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "IX_Citiess_DepartmentId",
-                table: "Citiess",
+                table: "Cities",
                 column: "DepartmentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Citiess_Name",
-                table: "Citiess",
+                table: "Cities",
                 column: "Name",
                 unique: true);
 
@@ -72,7 +72,7 @@ namespace Hololive_Store.Web.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Citiess");
+                name: "Cities");
 
             migrationBuilder.DropTable(
                 name: "Departments");

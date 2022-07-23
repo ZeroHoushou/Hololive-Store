@@ -35,7 +35,7 @@ namespace Hololive_Store.Web.Controllers
 
             var country = await _context.Countries
                 .Include(c=> c.Departments)
-                .ThenInclude(d=>d.Citiess)
+                .ThenInclude(d=>d.Cities)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (country == null)
             {
@@ -54,7 +54,7 @@ namespace Hololive_Store.Web.Controllers
             }
 
             Department department = await _context.Departments
-                .Include(d => d.Citiess)
+                .Include(d => d.Cities)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (department == null)
             {
@@ -172,7 +172,7 @@ namespace Hololive_Store.Web.Controllers
 
             Country country = await _context.Countries
                 .Include(c => c.Departments)
-                .ThenInclude(d => d.Citiess)
+                .ThenInclude(d => d.Cities)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (country == null)
             {
@@ -322,7 +322,7 @@ namespace Hololive_Store.Web.Controllers
             }
 
             Department department = await _context.Departments
-                .Include(d => d.Citiess)
+                .Include(d => d.Cities)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (department == null)
             {
@@ -359,7 +359,7 @@ namespace Hololive_Store.Web.Controllers
             if (ModelState.IsValid)
             {
                 Department department = await _context.Departments
-                    .Include(d => d.Citiess)
+                    .Include(d => d.Cities)
                     .FirstOrDefaultAsync(c => c.Id == city.IdDepartment);
                 if (department == null)
                 {
@@ -369,7 +369,7 @@ namespace Hololive_Store.Web.Controllers
                 try
                 {
                     city.Id = 0;
-                    department.Citiess.Add(city);
+                    department.Cities.Add(city);
                     _context.Update(department);
                     await _context.SaveChangesAsync();
                     return RedirectToAction($"{nameof(DetailsDepartment)}", new { department.Id });
@@ -408,7 +408,7 @@ namespace Hololive_Store.Web.Controllers
                 return NotFound();
             }
 
-            Department department = await _context.Departments.FirstOrDefaultAsync(d => d.Citiess.FirstOrDefault(c => c.Id == city.Id) != null);
+            Department department = await _context.Departments.FirstOrDefaultAsync(d => d.Cities.FirstOrDefault(c => c.Id == city.Id) != null);
             city.IdDepartment = department.Id;
             return View(city);
         }
@@ -422,7 +422,7 @@ namespace Hololive_Store.Web.Controllers
                 try
                 {
                     Department department = await _context.Departments.AsNoTracking()
-                   .Include(c => c.Citiess)
+                   .Include(c => c.Cities)
                    .FirstOrDefaultAsync(c => c.Id ==city.IdDepartment );
                     if (department == null)
                     {
@@ -467,7 +467,7 @@ namespace Hololive_Store.Web.Controllers
                 return NotFound();
             }
 
-            Department department = await _context.Departments.FirstOrDefaultAsync(d => d.Citiess.FirstOrDefault(c => c.Id == city.Id) != null);
+            Department department = await _context.Departments.FirstOrDefaultAsync(d => d.Cities.FirstOrDefault(c => c.Id == city.Id) != null);
             _context.Citiess.Remove(city);
             await _context.SaveChangesAsync();
             return RedirectToAction($"{nameof(DetailsDepartment)}",new {department.Id});
