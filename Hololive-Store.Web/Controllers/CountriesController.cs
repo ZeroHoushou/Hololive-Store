@@ -402,7 +402,7 @@ namespace Hololive_Store.Web.Controllers
                 return NotFound();
             }
 
-            City city = await _context.Citiess.FindAsync(id);
+            City city = await _context.Cities.FindAsync(id);
             if (city == null)
             {
                 return NotFound();
@@ -460,7 +460,7 @@ namespace Hololive_Store.Web.Controllers
                 return NotFound();
             }
 
-            City city = await _context.Citiess
+            City city = await _context.Cities
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (city == null)
             {
@@ -468,7 +468,7 @@ namespace Hololive_Store.Web.Controllers
             }
 
             Department department = await _context.Departments.FirstOrDefaultAsync(d => d.Cities.FirstOrDefault(c => c.Id == city.Id) != null);
-            _context.Citiess.Remove(city);
+            _context.Cities.Remove(city);
             await _context.SaveChangesAsync();
             return RedirectToAction($"{nameof(DetailsDepartment)}",new {department.Id});
         }

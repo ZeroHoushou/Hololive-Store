@@ -11,6 +11,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Hololive_Store.Web.Helpers;
 
 namespace Hololive_Store.Web
 {
@@ -33,10 +35,22 @@ namespace Hololive_Store.Web
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            services.Configure<CookiePolicyOptions>(options =>
+            {
+                options.CheckConsentNeeded = context => true;
+                options.MinimumSameSitePolicy = SameSiteMode.None;
+            });
             services.AddDbContext<DataContext>(cfg =>
             {
                 cfg.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")).EnableSensitiveDataLogging();
             });
+
+            services.AddTransient<SeedDb>();
+            services.AddScoped<IBlobHelper, BlobHelper>();
+            services.AddScoped<IConverterHelper, ConverterHelper>();
+
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
 
         }
 
