@@ -20,7 +20,7 @@ namespace Hololive_Store.Common.Entities
         //TODO: Pending to put the correct paths
         [Display(Name = "Image")]
         public string ImageFullPath => ImageId == Guid.Empty
-            ? $"https://localhost:44390/images/noimage.png"
+            ? $"https://localhost:44342/images/noimage.png"
             : $"https://holostore.blob.core.windows.net/categories/{ImageId}";
     }
 
